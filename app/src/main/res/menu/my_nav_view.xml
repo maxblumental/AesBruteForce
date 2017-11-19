@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_encode"
+        android:icon="@drawable/ic_enhanced_encryption_white_24dp"
+        android:title="@string/encode_menu_item" />
+    <item
+        android:id="@+id/nav_decode"
+        android:icon="@drawable/ic_no_encryption_white_24dp"
+        android:title="@string/decode_menu_item" />
+  </group>
+
+</menu>

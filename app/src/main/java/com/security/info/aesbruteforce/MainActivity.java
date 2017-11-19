@@ -1,145 +1,75 @@
 package com.security.info.aesbruteforce;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatEditText;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.security.info.aesbruteforce.decode.DecodeTask;
-import com.security.info.aesbruteforce.decode.DecodingResult;
-import com.security.info.aesbruteforce.tune.TuneActivity;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import javax.inject.Inject;
-
+import android.widget.FrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.security.info.aesbruteforce.decode.DecodeFragment;
 
-import static java.lang.String.format;
+public class MainActivity extends AppCompatActivity
+    implements NavigationView.OnNavigationItemSelectedListener {
 
-public class MainActivity extends AppCompatActivity {
+  @BindView(R.id.content) FrameLayout contentView;
+  @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+  @BindView(R.id.navigation) NavigationView navigationView;
+  @BindView(R.id.toolbar) Toolbar toolbar;
 
-    @BindView(R.id.encoded) AppCompatEditText encoded;
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main_layout);
+    ButterKnife.bind(this);
 
-    @BindView(R.id.progress_block) View progressBlock;
-    @BindView(R.id.progress_bar) ProgressBar progressBar;
-    @BindView(R.id.number_of_efforts) TextView numberOfEfforts;
+    setSupportActionBar(toolbar);
 
-    @BindView(R.id.result_block) View resultBlock;
-    @BindView(R.id.decoded) TextView decoded;
-    @BindView(R.id.key) TextView key;
-    @BindView(R.id.decoding_time) TextView decodingTime;
+    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+        R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+    drawerLayout.addDrawerListener(toggle);
+    toggle.syncState();
 
-    @Inject BruteForceSettings settings;
+    openDecodeFragment();
 
-    private DecodeTask decodeTask;
+    navigationView.setNavigationItemSelectedListener(this);
+  }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.decode_layout);
-        App.component.inject(this);
-        ButterKnife.bind(this);
+  private void openDecodeFragment() {
+    getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.content, new DecodeFragment())
+        .commit();
+  }
+
+  private void openEncodeFragment() {
+    // TODO open encode fragment
+  }
+
+  @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    int id = item.getItemId();
+
+    if (id == R.id.nav_encode) {
+
+    } else if (id == R.id.nav_decode) {
+      openDecodeFragment();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
+    drawerLayout.closeDrawer(GravityCompat.START);
+    return true;
+  }
+
+  @Override
+  public void onBackPressed() {
+    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+      drawerLayout.closeDrawer(GravityCompat.START);
+    } else {
+      super.onBackPressed();
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.tune:
-                startActivity(new Intent(MainActivity.this, TuneActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @OnClick(R.id.decode_button)
-    public void onDecodeClick() {
-        hideKeyBoard();
-        if (decodeTask != null && decodeTask.getStatus() == AsyncTask.Status.RUNNING) {
-            Toast.makeText(this, "Decoding is already in progress", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        String encoded = this.encoded.getText().toString();
-        if (encoded.isEmpty()) {
-            return;
-        }
-        decoded.setText(R.string.decoded_hint);
-        resultBlock.setVisibility(View.GONE);
-        progressBlock.setVisibility(View.VISIBLE);
-        decodeTask = new DecodeTask(settings) {
-            @Override
-            protected void onPostExecute(DecodingResult result) {
-                progressBlock.setVisibility(View.GONE);
-                if (result.getMessage() == null) {
-                    Toast.makeText(MainActivity.this, "Couldn't decode", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                resultBlock.setVisibility(View.VISIBLE);
-                decoded.setText(result.getMessage());
-                key.setText(result.getKey());
-                Date date = new Date(result.getTime());
-                SimpleDateFormat formatter = new SimpleDateFormat("mm:ss:SSS", Locale.ENGLISH);
-                decodingTime.setText(formatter.format(date));
-            }
-
-            @Override
-            protected void onProgressUpdate(Long... values) {
-                numberOfEfforts.setText(format(Locale.ENGLISH, "%d", values[0]));
-            }
-
-            @Override
-            protected void onCancelled(DecodingResult s) {
-                progressBlock.setVisibility(View.GONE);
-                Toast.makeText(MainActivity.this, "Cancelled", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        decodeTask.execute(encoded);
-    }
-
-    @OnClick(R.id.cancel_button)
-    public void onCancelClick() {
-        if (decodeTask != null) {
-            decodeTask.cancel(true);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (decodeTask != null) {
-            decodeTask.cancel(true);
-        }
-        super.onDestroy();
-    }
-
-    private void hideKeyBoard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm =
-                    (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
+  }
 }

@@ -1,17 +1,21 @@
 <resources>
-    <string name="app_name">AES brute force</string>
-    <string name="tune_menu_item">tune</string>
-    <string name="length_field">Length</string>
-    <string name="length_checkbox">Length is known</string>
-    <string name="character_types">Character types</string>
-    <string name="special_characters_checkbox">special characters</string>
-    <string name="digits_checkbox">digits</string>
-    <string name="letters_checkbox">letters</string>
-    <string name="encoded_hint">Input encoded text</string>
-    <string name="decoded_hint">Decoded text:</string>
-    <string name="decode">Decode</string>
-    <string name="number_of_efforts">Number of efforts:</string>
-    <string name="cancel">cancel</string>
-    <string name="key">Key:</string>
-    <string name="decoding_time">Decoding time:</string>
+  <string name="app_name">AES brute force</string>
+  <string name="tune_menu_item">tune</string>
+  <string name="length_field">Length</string>
+  <string name="length_checkbox">Length is known</string>
+  <string name="character_types">Character types</string>
+  <string name="special_characters_checkbox">special characters</string>
+  <string name="digits_checkbox">digits</string>
+  <string name="letters_checkbox">letters</string>
+  <string name="encoded_hint">Input encoded text</string>
+  <string name="decoded_hint">Decoded text:</string>
+  <string name="decode">Decode</string>
+  <string name="number_of_efforts">Number of efforts:</string>
+  <string name="cancel">cancel</string>
+  <string name="key">Key:</string>
+  <string name="decoding_time">Decoding time:</string>
+  <string name="navigation_drawer_open">open</string>
+  <string name="navigation_drawer_close">close</string>
+  <string name="encode_menu_item">Encode</string>
+  <string name="decode_menu_item">Decode</string>
 </resources>
