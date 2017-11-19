@@ -18,4 +18,9 @@
   <string name="navigation_drawer_close">close</string>
   <string name="encode_menu_item">Encode</string>
   <string name="decode_menu_item">Decode</string>
+  <string name="encode">Encode</string>
+  <string name="input_secret">Input secret</string>
+  <string name="input_text_to_encode">Input text to encode</string>
+  <string name="result_will_appear_here">Result will appear here</string>
+  <string name="copy">Copy</string>
 </resources>

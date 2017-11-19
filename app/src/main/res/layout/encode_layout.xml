@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    >
+
+  <android.support.v7.widget.AppCompatEditText
+      android:id="@+id/text_to_encode"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:hint="@string/input_text_to_encode"
+      android:textSize="16sp"
+      />
+
+  <android.support.v7.widget.AppCompatEditText
+      android:id="@+id/secret"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:hint="@string/input_secret"
+      android:textSize="16sp"
+      />
+
+  <Button
+      android:id="@+id/encode_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="16dp"
+      android:text="@string/encode"
+      />
+
+  <TextView
+      android:id="@+id/result"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:hint="@string/result_will_appear_here"
+      android:textSize="16sp"
+      />
+
+  <Button
+      android:id="@+id/copy_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="16dp"
+      android:text="@string/copy"
+      android:visibility="gone"
+      tools:visibility="visible"
+      />
+
+</LinearLayout>

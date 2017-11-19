@@ -19,7 +19,7 @@ public class DecodeTask extends AsyncTask<String, Long, DecodingResult> {
 
     private final BruteForceSettings settings;
 
-    protected DecodeTask(BruteForceSettings settings) {
+    DecodeTask(BruteForceSettings settings) {
         this.settings = settings;
     }
 

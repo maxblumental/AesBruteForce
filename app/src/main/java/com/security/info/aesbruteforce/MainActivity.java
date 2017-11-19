@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.security.info.aesbruteforce.decode.DecodeFragment;
+import com.security.info.aesbruteforce.encode.EncodeFragment;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,14 +49,17 @@ public class MainActivity extends AppCompatActivity
   }
 
   private void openEncodeFragment() {
-    // TODO open encode fragment
+    getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.content, new EncodeFragment())
+        .commit();
   }
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     int id = item.getItemId();
 
     if (id == R.id.nav_encode) {
-
+      openEncodeFragment();
     } else if (id == R.id.nav_decode) {
       openDecodeFragment();
     }
