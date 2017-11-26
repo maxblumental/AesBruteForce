@@ -1,6 +1,5 @@
 package com.security.info.aesbruteforce.decode;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,8 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,14 +21,14 @@ import butterknife.OnClick;
 import com.security.info.aesbruteforce.App;
 import com.security.info.aesbruteforce.BruteForceSettings;
 import com.security.info.aesbruteforce.R;
-import com.security.info.aesbruteforce.decode.DecodeTask;
-import com.security.info.aesbruteforce.decode.DecodingResult;
+import com.security.info.aesbruteforce.Utils;
 import com.security.info.aesbruteforce.tune.TuneActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import javax.inject.Inject;
 
+import static com.security.info.aesbruteforce.Utils.hideKeyBoard;
 import static java.lang.String.format;
 
 public class DecodeFragment extends Fragment {
@@ -83,7 +80,7 @@ public class DecodeFragment extends Fragment {
 
   @OnClick(R.id.decode_button)
   public void onDecodeClick() {
-    hideKeyBoard();
+    hideKeyBoard(getActivity());
     if (decodeTask != null && decodeTask.getStatus() == AsyncTask.Status.RUNNING) {
       Toast.makeText(getContext(), "Decoding is already in progress", Toast.LENGTH_SHORT).show();
       return;
@@ -138,14 +135,5 @@ public class DecodeFragment extends Fragment {
       decodeTask.cancel(true);
     }
     super.onDestroyView();
-  }
-
-  private void hideKeyBoard() {
-    View view = getActivity().getCurrentFocus();
-    if (view != null) {
-      InputMethodManager imm =
-          (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-      imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
   }
 }

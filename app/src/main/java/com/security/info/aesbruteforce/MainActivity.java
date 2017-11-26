@@ -10,11 +10,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.security.info.aesbruteforce.decode.DecodeFragment;
 import com.security.info.aesbruteforce.encode.EncodeFragment;
+
+import static com.security.info.aesbruteforce.Utils.hideKeyBoard;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,7 +39,22 @@ public class MainActivity extends AppCompatActivity
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();
 
-    openDecodeFragment();
+    drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+      @Override public void onDrawerSlide(View drawerView, float slideOffset) {
+      }
+
+      @Override public void onDrawerOpened(View drawerView) {
+        hideKeyBoard(MainActivity.this);
+      }
+
+      @Override public void onDrawerClosed(View drawerView) {
+      }
+
+      @Override public void onDrawerStateChanged(int newState) {
+      }
+    });
+
+    openEncodeFragment();
 
     navigationView.setNavigationItemSelectedListener(this);
   }

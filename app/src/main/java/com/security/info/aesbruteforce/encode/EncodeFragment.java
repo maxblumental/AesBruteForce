@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.security.info.aesbruteforce.R;
@@ -43,6 +44,7 @@ public class EncodeFragment extends Fragment {
             (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(encrypted, encrypted);
         clipboard.setPrimaryClip(clip);
+        Toast.makeText(getContext(), "Copied!", Toast.LENGTH_SHORT).show();
       }
     });
 
