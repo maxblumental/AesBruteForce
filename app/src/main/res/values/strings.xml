@@ -7,11 +7,11 @@
   <string name="special_characters_checkbox">special characters</string>
   <string name="digits_checkbox">digits</string>
   <string name="letters_checkbox">letters</string>
-  <string name="encoded_hint">Input encoded text</string>
+  <string name="encoded_hint">Enter encoded text</string>
   <string name="decoded_hint">Decoded text:</string>
   <string name="decode">Decode</string>
   <string name="number_of_efforts">Number of efforts:</string>
-  <string name="cancel">cancel</string>
+  <string name="cancel">Cancel</string>
   <string name="key">Key:</string>
   <string name="decoding_time">Decoding time:</string>
   <string name="navigation_drawer_open">open</string>
@@ -19,8 +19,8 @@
   <string name="encode_menu_item">Encode</string>
   <string name="decode_menu_item">Decode</string>
   <string name="encode">Encode</string>
-  <string name="input_secret">Input secret</string>
-  <string name="input_text_to_encode">Input text to encode</string>
+  <string name="input_secret">Enter secret</string>
+  <string name="input_text_to_encode">Enter text to encode</string>
   <string name="result_will_appear_here">Result will appear here</string>
   <string name="copy">Copy</string>
 </resources>

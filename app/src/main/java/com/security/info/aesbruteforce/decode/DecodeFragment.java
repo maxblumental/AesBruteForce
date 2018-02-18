@@ -78,8 +78,7 @@ public class DecodeFragment extends Fragment {
     }
   }
 
-  @OnClick(R.id.decode_button)
-  public void onDecodeClick() {
+  @OnClick(R.id.decode_button) void onDecodeClick() {
     hideKeyBoard(getActivity());
     if (decodeTask != null && decodeTask.getStatus() == AsyncTask.Status.RUNNING) {
       Toast.makeText(getContext(), "Decoding is already in progress", Toast.LENGTH_SHORT).show();
@@ -123,8 +122,7 @@ public class DecodeFragment extends Fragment {
     decodeTask.execute(encoded);
   }
 
-  @OnClick(R.id.cancel_button)
-  public void onCancelClick() {
+  @OnClick(R.id.cancel_button) void onCancelClick() {
     if (decodeTask != null) {
       decodeTask.cancel(true);
     }
