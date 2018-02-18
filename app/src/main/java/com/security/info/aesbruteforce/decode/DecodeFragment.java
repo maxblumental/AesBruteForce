@@ -84,7 +84,7 @@ public class DecodeFragment extends Fragment {
       Toast.makeText(getContext(), "Decoding is already in progress", Toast.LENGTH_SHORT).show();
       return;
     }
-    String encoded = this.encoded.getText().toString();
+    String encoded = this.encoded.getText().toString().trim();
     if (encoded.isEmpty()) {
       return;
     }

@@ -25,21 +25,23 @@ public class DecodeTask extends AsyncTask<String, Long, DecodingResult> {
 
   @Override
   protected DecodingResult doInBackground(String... params) {
-    String encoded = params[0];
-
     WordPermutations wordPermutations = wordPermutations();
 
     long i = 0;
     long start = System.currentTimeMillis();
+    String[] split = params[0].split("\\s+");
+    String encodedPlain = split[0];
+    String encodedSession = split[1];
     for (String permutation : wordPermutations) {
-      String decrypt = decrypt(encoded, permutation);
-      if (isValidDecodedMessage(decrypt)) {
-        return new DecodingResult(decrypt, permutation, System.currentTimeMillis() - start);
+      String decrypted = decrypt(encodedPlain, decrypt(encodedSession, permutation));
+
+      if (isValidDecodedMessage(decrypted)) {
+        return new DecodingResult(decrypted, permutation, System.currentTimeMillis() - start);
       }
       if (isCancelled()) {
         return null;
       }
-      if (i % 1000 == 0) {
+      if (i % 100 == 0) {
         publishProgress(i);
       }
       i++;

@@ -18,8 +18,10 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.security.info.aesbruteforce.R;
+import com.security.info.aesbruteforce.Utils;
 import java.security.MessageDigest;
 import java.util.Arrays;
+import java.util.Random;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -60,9 +62,12 @@ public class EncodeFragment extends Fragment {
           secretView.setError("Enter secret");
           return;
         }
-        String encoded = encrypt(plain, secret);
-        resultView.setText(encoded);
+        String session = String.valueOf(new Random().nextInt());
+        String encodedSession = encrypt(session, secret);
+        String encodedPlain = encrypt(plain, session);
+        resultView.setText(encodedPlain + "\n" + encodedSession);
         copyButton.setVisibility(View.VISIBLE);
+        Utils.hideKeyBoard(getActivity());
       }
     });
 
